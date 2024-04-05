@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib import admin
 
 
 class Addresstype(models.Model):
@@ -9,6 +8,9 @@ class Addresstype(models.Model):
     class Meta:
         managed = False
         db_table = 'AddressType'
+    
+    def __str__(self):
+        return self.address_type
 
 
 class Pagedata(models.Model):
@@ -22,6 +24,10 @@ class Pagedata(models.Model):
     class Meta:
         managed = False
         db_table = 'PageData'
+        
+    def __str__(self):
+        return self.page_name
+    
 
 
 class Phonetype(models.Model):

@@ -70,3 +70,7 @@ django-admin startproject -- Para crear un django proyect
 
 python3 manage.py makemigrations -- script para crear tablas
 python3 manage.py inspectdb > all_models.py
+
+python3 manage.py createsuperuser
+
+python3 manage.py runserver -- correr la api
