@@ -1,0 +1,72 @@
+sudo apt install mysql-server -- instalar mysql
+sudo systemctl status mysql -- ver el estado mysql
+CREATE DATABASE proteinhouse; -- crear base de datos 
+USE proteinhouse; -- usar base de datos
+show tables; -- ver todas las tablas de la base de datos
+describe table; -- para ver las columns y filas que tiene cada tabla
+
+
+CREATE TABLE user (
+  user_id int NOT NULL AUTO_INCREMENT,
+  first_name varchar(25) NOT NULL,
+  last_name varchar(30) NOT NULL,
+  email varchar(40) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  created_date datetime DEFAULT NULL,
+  is_active tinyint(1) DEFAULT NULL,
+  last_login datetime DEFAULT NULL,
+  PRIMARY KEY (user_id),
+  UNIQUE (email)
+);
+
+CREATE TABLE UserAddress (
+    user_address_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    street_1 VARCHAR(50),
+    street_2 VARCHAR(50),
+    city VARCHAR(35),
+    st VARCHAR(2),
+    zip VARCHAR(10),
+    country VARCHAR(30),
+    address_type_id INT NOT NULL,
+    PRIMARY KEY (user_address_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (address_type_id) REFERENCES AddressType(address_type_id)
+);
+
+CREATE TABLE UserPhone (
+    user_phone_id INT NOT NULL AUTO_INCREMENT,
+    phone_type_id INT NOT NULL,
+    user_id INT NOT NULL,
+    phone_number VARCHAR(10),
+    created_date DATETIME,
+    is_active BOOLEAN,
+    PRIMARY KEY (user_phone_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (phone_type_id) REFERENCES PhoneType(phone_type_id)
+);
+
+
+
+
+
+
+
+
+
+-- Comandos para iniciar env api 
+cs415_project\api>  - ir a la carpeta api 
+env\Scripts\activate -->   windows or 
+source env/bin/activate --> mac os
+pip install Django
+pip install django_rest_framework
+pip install django-cors-headers
+pip install mysqlclient
+pip install --upgrade pip
+pip freeze > requirements.txt
+
+
+django-admin startproject -- Para crear un django proyect 
+
+python3 manage.py makemigrations -- script para crear tablas
+python3 manage.py inspectdb > all_models.py
