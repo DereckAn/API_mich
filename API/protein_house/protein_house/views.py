@@ -8,6 +8,8 @@ from protein_house.models import User
 from protein_house.serializers import (AddresstypeSerializer,
                                        PagedataSerializer, PhoneSerializerGet,
                                        PhoneSerializerPost,
+                                       AddressSerializerPost,
+                                       AddressSerializerGet,
                                        PhonetypeSerializer,
                                        UseraddressSerializer,
                                        UserinfoSerializer, UserphoneSerializer,
@@ -36,21 +38,21 @@ class UserAPIView(APIView):
         serializer = UserSerializer(users, many=True)
         return Response({'users': serializer.data})
 
-class PageDataAPIView(APIView):
-    def post(self, request, *args, **kwargs):
-        if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
-        serializer = PageDataSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'data': serializer.data})
-        else:
-            return Response({'errors': serializer.errors},
-                                status=status.HTTP_400_BAD_REQUEST)
-    def get(self,request):
-        if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
-        page_datas = Pagedata.objects.all()
-        serializer = PageDataSerializer(page_datas, many=True)
-        return Response({'pages': serializer.data})
+# class PageDataAPIView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
+#         serializer = PageDataSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'data': serializer.data})
+#         else:
+#             return Response({'errors': serializer.errors},
+#                                 status=status.HTTP_400_BAD_REQUEST)
+#     def get(self,request):
+#         if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
+#         page_datas = Pagedata.objects.all()
+#         serializer = PageDataSerializer(page_datas, many=True)
+#         return Response({'pages': serializer.data})
 
 class Login(APIView):
     def post(self, request):
@@ -161,7 +163,7 @@ class UserPhoneAPIView(APIView):
 class PhoneTypeAPIView(APIView):
     def post(self, request, *args, **kwargs):
         if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
-        serializer = PhoneTypeSerializer(data=request.data)
+        serializer = PhonetypeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'data': serializer.data})
@@ -171,13 +173,13 @@ class PhoneTypeAPIView(APIView):
     def get(self,request):
         if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
         phone_types = Phonetype.objects.all()
-        serializer = PhoneTypeSerializer(phone_types, many=True)
+        serializer = PhonetypeSerializer(phone_types, many=True)
         return Response({'phone_types': serializer.data})
 
 class AddressTypeAPIView(APIView):
     def post(self, request, *args, **kwargs):
         if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
-        serializer = AddressTypeSerializer(data=request.data)
+        serializer = AddresstypeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'data': serializer.data})
@@ -187,7 +189,7 @@ class AddressTypeAPIView(APIView):
     def get(self,request):
         if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
         address_types = Addresstype.objects.all()
-        serializer = AddressTypeSerializer(address_types, many=True)
+        serializer = AddresstypeSerializer(address_types, many=True)
         return Response({'address_types': serializer.data})
 
 class UserInfoAPIView(APIView):
@@ -214,9 +216,9 @@ class GetSingleUserInfoAPIView(APIView):
         serializer = UserinfoSerializer(info, many=True)
         return Response({'info': serializer.data})
 
-class GetSinglePageDataAPIView(APIView):
-    def get(self,request,id):
-        if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
-        page = Pagedata.objects.get(pk=id)
-        serializer = PageDataSerializer(page)
-        return Response({'page': serializer.data})
+# class GetSinglePageDataAPIView(APIView):
+#     def get(self,request,id):
+#         if JWT_AUTH: JWTAuthentication.authenticate(self,request=request)
+#         page = Pagedata.objects.get(pk=id)
+#         serializer = PageDataSerializer(page)
+#         return Response({'page': serializer.data})

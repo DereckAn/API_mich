@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'proteinhouse',
         'USER': 'apiuser',
         'PASSWORD': 'apiuserpass',
-        'HOST': '54.172.120.73',
+        'HOST': '44.222.11.61',
         'PORT': '3306',
     }   
 }

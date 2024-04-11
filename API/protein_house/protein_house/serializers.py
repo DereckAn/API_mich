@@ -1,5 +1,5 @@
-from protein_house.models import (Addresstype, Pagedata, Phonetype, User, Useraddress,
-                          Userinfo, Userphone)
+from protein_house.models import (Addresstype, Pagedata, Phonetype, User,
+                                  Useraddress, Userinfo, Userphone)
 from rest_framework import serializers
 
 
@@ -29,6 +29,22 @@ class AddresstypeSerializer(serializers.ModelSerializer):
         model = Addresstype
         fields = '__all__'
 
+
+
+class AddressSerializerGet(serializers.ModelSerializer):
+    address_type = AddresstypeSerializer(read_only=True)
+    class Meta:
+        model = Useraddress
+        # depth = 1
+        fields = '__all__'
+
+
+class AddressSerializerPost(serializers.ModelSerializer):
+    class Meta:
+        model = Useraddress
+        fields = '__all__'
+        
+        
 class UserinfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Userinfo
@@ -42,7 +58,7 @@ class PagedataSerializer(serializers.ModelSerializer):
 
 
 class PhoneSerializerGet(serializers.ModelSerializer):
-    phone_type = PhoneTypeSerializer(read_only=True)
+    phone_type = PhonetypeSerializer(read_only=True)
     class Meta:
         model=Userphone
         fields = '__all__'
